@@ -21,11 +21,21 @@ inquirer
     }
   ])
 
+  .then(function(response) {
+
+    if (response.confirm === response.password) {
+      console.log("Success!");
+    }
+    else {
+      console.log("You forgot your password already?!");
+    }
+  });
+
+//end of activity code
 
 
 
-
-
+//below provided code
 const colors = {
   green: {
     wrapperBackground: "#E6E1C3",
