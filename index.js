@@ -6,29 +6,17 @@ inquirer
   .prompt([
     {
       type: "input",
-      message: "What is your user name?",
-      name: "username"
+      message: "What is your favorite color?",
+      name: "color"
     },
-    {
-      type: "password",
-      message: "What is your password?",
-      name: "password"
-    },
-    {
-      type: "password",
-      message: "Re-enter password to confirm:",
-      name: "confirm"
-    }
   ])
 
   .then(function(response) {
 
-    if (response.confirm === response.password) {
-      console.log("Success!");
+    if (response.color === response.color) {
+      console.log("Thank you!");
     }
-    else {
-      console.log("You forgot your password already?!");
-    }
+
   });
 
 //end of activity code
