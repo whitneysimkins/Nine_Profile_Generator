@@ -19,7 +19,7 @@ inquirer
 
   });
 
-//end of activity code
+//end of prompting code
 
 
 
