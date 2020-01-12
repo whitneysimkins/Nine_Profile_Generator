@@ -1,6 +1,6 @@
-//prompting
+const axios = require("axios"); //getting code to talk to GitHub
+var inquirer = require("inquirer"); //asking color question in Terminal
 
-var inquirer = require("inquirer");
 
 inquirer
   .prompt([
@@ -11,7 +11,7 @@ inquirer
     },
   ])
 
-  .then(function(response) {
+  .then(function (response) {
 
     if (response.color === response.color) {
       console.log("Thank you!");
@@ -19,7 +19,8 @@ inquirer
 
   });
 
-//end of prompting code
+//end of asking color question in Terminal
+
 
 
 
@@ -197,4 +198,4 @@ function generateHTML(data) {
           } 
          }
       </style>`
-        }
+}
