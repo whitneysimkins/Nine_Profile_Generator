@@ -1,6 +1,6 @@
 const axios = require("axios"); //getting code to talk to GitHub
 const inquirer = require("inquirer"); //asking color question in Terminal
-
+const html = fs.readFileSync('index.html', 'utf8');
 
 inquirer
   .prompt([
@@ -37,9 +37,12 @@ function gitHub(userName){
     })
 }
 
-//function write to file
+//function write to file - get the info to dictate the PDF
 
-function writeToFile(file)
+function writeToFile(){
+
+}
+
 
 
 
@@ -72,6 +75,7 @@ const colors = {
   }
 };
 
+//HTML
 function generateHTML(data) {
   return `<!DOCTYPE html>
 <html lang="en">
