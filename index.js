@@ -1,5 +1,5 @@
 const axios = require("axios"); //getting code to talk to GitHub
-var inquirer = require("inquirer"); //asking color question in Terminal
+const inquirer = require("inquirer"); //asking color question in Terminal
 
 
 inquirer
@@ -35,6 +35,11 @@ function gitHub(userName){
       console.log(error);
     })
 }
+
+//function write to file
+
+function writeToFile(file)
+
 
 
 
