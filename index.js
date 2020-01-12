@@ -9,18 +9,32 @@ inquirer
       message: "What is your favorite color?",
       name: "color"
     },
+    {
+      type: "input",
+      message: "What is your GitHub repo name?",
+      name: "repo"
+    },
   ])
 
   .then(function (response) {
-
-    if (response.color === response.color) {
-      console.log("Thank you!");
-    }
-
+console.log(response);
+gitHub(response.repo)
   });
 
 //end of asking color question in Terminal
+function gitHub(userName){
+  const queryUrl = `https://api.github.com/users/${userName}?`;
 
+  axios.get(queryUrl)
+    .then(function (response) {
+      // handle success
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+}
 
 
 
