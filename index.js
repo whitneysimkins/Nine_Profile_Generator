@@ -20,8 +20,9 @@ inquirer
 console.log(response);
 gitHub(response.repo)
   });
-
 //end of asking color question in Terminal
+
+//pulling info from GitHub >> updated API to only include user info, not every single repo info
 function gitHub(userName){
   const queryUrl = `https://api.github.com/users/${userName}?`;
 
