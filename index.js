@@ -1,6 +1,7 @@
 const axios = require("axios"); //getting code to talk to GitHub
 const inquirer = require("inquirer"); //asking color question in Terminal
 const html = fs.readFileSync('index.html', 'utf8');
+var pdf = require('html-pdf');
 
 inquirer
   .prompt([
@@ -43,6 +44,10 @@ function writeToFile(){
 
 }
 
+// pdf.create(html, options).toFile('./businesscard.pdf', function(err, res) {
+//   if (err) return console.log(err);
+//   console.log(res); // { filename: '/app/businesscard.pdf' }
+// });
 
 
 
