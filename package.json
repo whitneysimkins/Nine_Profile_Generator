@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-
+    "axios": "^0.19.1",
+    "inquirer": "^7.0.3"
   },
   "devDependencies": {},
   "scripts": {
