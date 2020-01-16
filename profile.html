@@ -1,92 +1,4 @@
-const axios = require("axios"); //getting code to talk to GitHub
-const inquirer = require("inquirer"); //asking color question in Terminal
-const fs = require("fs");
-const html = fs.readFileSync('index.html', 'utf8');
-var pdf = require('html-pdf');
-
-inquirer
-  .prompt([
-    {
-      type: "list",
-      choices: ["green", "blue", "pink", "red"],
-      message: "What is your favorite color?",
-      name: "color"
-    },
-    {
-      type: "input",
-      message: "What is your GitHub repo name?",
-      name: "repo"
-    },
-  ])
-
-  .then(function (response) {
-    console.log(response);
-    gitHub(response)
-  });
-//end of asking color question in Terminal
-
-//pulling info from GitHub >> updated API to only include user info, not every single repo info
-function gitHub(userName) {
-  const queryUrl = `https://api.github.com/users/${userName.repo}?`; var html 
-
-  axios.get(queryUrl)
-    .then(function (response) {
-      // handle success
-      console.log(response.data);
-      html = generateHTML({...response.data, ...{color:userName.color}});
-      writeHTML(html)
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-}
-
-function writeHTML(html){
-  fs.writeFile("profile.html" , html, function(err){
-    if(err) throw err;
-  })
-}
-
-// pdf.create(html, options).toFile('./businesscard.pdf', function(err, res) {
-//   if (err) return console.log(err);
-//   console.log(res); // { filename: '/app/businesscard.pdf' }
-// });
-
-
-
-
-//below provided code
-const colors = {
-  green: {
-    wrapperBackground: "#E6E1C3",
-    headerBackground: "#C1C72C",
-    headerColor: "black",
-    photoBorderColor: "#black"
-  },
-  blue: {
-    wrapperBackground: "#5F64D3",
-    headerBackground: "#26175A",
-    headerColor: "white",
-    photoBorderColor: "#73448C"
-  },
-  pink: {
-    wrapperBackground: "#879CDF",
-    headerBackground: "#FF8374",
-    headerColor: "white",
-    photoBorderColor: "#FEE24C"
-  },
-  red: {
-    wrapperBackground: "#DE9967",
-    headerBackground: "#870603",
-    headerColor: "white",
-    photoBorderColor: "white"
-  }
-};
-
-//HTML
-function generateHTML(data) {
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="UTF-8" />
@@ -112,7 +24,7 @@ function generateHTML(data) {
          height: 100%;
          }
          .wrapper {
-         background-color: ${colors[data.color].wrapperBackground};
+         background-color: #5F64D3;
          padding-top: 100px;
          }
          body {
@@ -154,8 +66,8 @@ function generateHTML(data) {
          display: flex;
          justify-content: center;
          flex-wrap: wrap;
-         background-color: ${colors[data.color].headerBackground};
-         color: ${colors[data.color].headerColor};
+         background-color: #26175A;
+         color: white;
          padding: 10px;
          width: 95%;
          border-radius: 6px;
@@ -166,7 +78,7 @@ function generateHTML(data) {
          border-radius: 50%;
          object-fit: cover;
          margin-top: -75px;
-         border: 6px solid ${colors[data.color].photoBorderColor};
+         border: 6px solid #73448C;
          box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
          }
          .photo-header h1, .photo-header h2 {
@@ -209,8 +121,8 @@ function generateHTML(data) {
          .card {
            padding: 20px;
            border-radius: 6px;
-           background-color: ${colors[data.color].headerBackground};
-           color: ${colors[data.color].headerColor};
+           background-color: #26175A;
+           color: white;
            margin: 20px;
          }
          
@@ -233,9 +145,7 @@ function generateHTML(data) {
       </style>    
       <body>
       <div class = wrapper>
-          Name: ${data.name}
+          Name: Whitney Broadfoot
       </div>
 
-  </body>`
-
-}
+  </body>
