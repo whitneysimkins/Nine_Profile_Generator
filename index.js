@@ -1,8 +1,10 @@
 const axios = require("axios"); //getting code to talk to GitHub
 const inquirer = require("inquirer"); //asking color question in Terminal
 const fs = require("fs");
-const html = fs.readFileSync('index.html', 'utf8');
+// const html = fs.readFileSync('index.html', 'utf8');
 var pdf = require('html-pdf');
+var options = {format: "Letter"};
+
 
 inquirer
   .prompt([
@@ -33,7 +35,7 @@ function gitHub(userName) {
     .then(function (response) {
       // handle success
       console.log(response.data);
-      html = generateHTML({...response.data, ...{color:userName.color}});
+      const html = generateHTML({...response.data, ...{color:userName.color}});
       writeHTML(html)
     })
     .catch(function (error) {
@@ -43,20 +45,19 @@ function gitHub(userName) {
 }
 
 function writeHTML(html){
-  fs.writeFile("profile.html" , html, function(err){
+  fs.writeFile("profile.html", html, function(err){
     if(err) throw err;
   })
+        pdf.create(html, options).toFile('businesscard.pdf', function(err, res) {
+          if (err) return console.log(err);
+          console.log(res); // { filename: '/app/businesscard.pdf' }
+        });
 }
 
-// pdf.create(html, options).toFile('./businesscard.pdf', function(err, res) {
-//   if (err) return console.log(err);
-//   console.log(res); // { filename: '/app/businesscard.pdf' }
-// });
 
 
 
 
-//below provided code
 const colors = {
   green: {
     wrapperBackground: "#E6E1C3",
@@ -84,8 +85,8 @@ const colors = {
   }
 };
 
-//HTML
 function generateHTML(data) {
+  console.log("data check", data);
   return `<!DOCTYPE html>
 <html lang="en">
    <head>
@@ -230,12 +231,61 @@ function generateHTML(data) {
             zoom: .75; 
           } 
          }
-      </style>    
+      </style>
       <body>
-      <div class = wrapper>
-          Name: ${data.name}
+      <div class="wrapper">
+         <div class="photo-header">
+            <img src="${data.avatar_url}" alt="Photo of ${data.login}" />
+            <h1>Hi!</h1>
+            <h2>
+            My name is ${data.name}!</h1>
+            <h5>${data.bio}</h5>
+            <nav class="links-nav">
+               <a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/place/${data.location}"><i class="fas fa-location-arrow"></i> ${data}</a>
+               <a class="nav-link" target="_blank" rel="noopener noreferrer" href="${data.url}"><i class="fab fa-github-alt"></i> GitHub</a>
+              <a class="nav-link" target="_blank" rel="noopener noreferrer" href="${data.blog}"><i class="fas fa-rss"></i> Blog</a>
+            </nav>
+         </div>
+         <main>
+            <div class="container">
+            <div class="row">
+               <div class="col">
+               <h3>Company</h3>
+                  <h3>${data.company}</h3>
+               </div>
+            </div>
+               <div class="row">
+                <div class="col">
+                    <div class="card">
+                      <h3>Public Repositories</h3>
+                      <h4>${data.public_repos}</h4>
+                    </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <h3>Followers</h3>
+                    <h4>${data.followers}</h4>
+                  </div>
+               </div>
+               </div>
+               <div class="row">
+               <div class="col">
+               <div class="card">
+                  <h3>GitHub Stars</h3>
+                  <h4>${3}</h4>
+                  </div>
+               </div>
+                <div class="col">
+                <div class="card">
+                  <h3>Following</h3>
+                  <h4>${data.following_url}</h4>
+                  </div>
+               </div>
+               </div>
+            </div>
+         </main>
       </div>
+   </body>
+      `
+        }
 
-  </body>`
-
-}
